@@ -1,0 +1,24 @@
+{
+  "name": "gamesapi-anton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonBuivol/GamesApi-Anton.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AntonBuivol/GamesApi-Anton/issues"
+  },
+  "homepage": "https://github.com/AntonBuivol/GamesApi-Anton#readme",
+  "dependencies": {
+    "express": "^4.21.0",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
