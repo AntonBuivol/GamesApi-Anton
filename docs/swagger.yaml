@@ -1,0 +1,111 @@
+openapi: 3.0.2
+info:
+    title: Games-API
+    version: 1.0.0
+    description: >
+        This is a Swagger UI for our Games API
+
+
+        Error handling
+
+
+        Errors are presented using the HTTP status codes 400-599. The response include a more detailed
+        explanation about the error in the body.
+paths:
+    /games:
+        get:
+            tags:
+                - games
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                List of games:
+                                    value:
+                                        - Witcher 3
+                                        - Cyberpunk 2077
+                    description: Returns a list of games
+            summary: Get a list of all games
+            description: Returns a list all games in API
+        post:
+            requestBody:
+                description: A new game to be created
+                required: true
+            tags:
+                - new-game
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/new-game'
+                    description: Create game
+                '400':
+                    description: One or all params are missing
+            summary: Creates a game
+            description: Creates a new game
+    '/games/{id}':
+        get:
+            tags:
+                - details
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Full details:
+                                    value: |-
+                                        {
+                                            "id": 1,
+                                            "name": "Witcher 3",
+                                            "price": 29.99
+                                        },
+                                        {
+                                            "id": 2,
+                                            "name": "Cyberpunk 2077",
+                                            "price": 59.99
+                                        }
+                    description: Returns full detail of a given id game
+                '404':
+                    content:
+                        application/json: {}
+                    description: Game was not found in games array
+            operationId: id
+            summary: Get full details of a game
+            description: Returns full details of a given id game
+components:
+    schemas:
+        error:
+            title: Root Type for error
+            description: ''
+            type: object
+            properties:
+                error:
+                    type: string
+            example:
+                error: Error message
+        new-game:
+            title: Root Type for new-game
+            description: ''
+            required:
+                - name
+                - price
+            type: object
+            properties:
+                name:
+                    type: string
+                price:
+                    format: float
+                    type: number
+            example:
+                name: Tetris
+                price: 0.99
