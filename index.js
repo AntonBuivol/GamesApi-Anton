@@ -30,7 +30,7 @@ app.get('/games/:id', (req, res) => {
 
     res.send(games[req.params.id - 1])
 })
-
+ 
 app.post('/games', (req, res) => {
     if(!req.body.name || !req.body.price){
         return res.status(400).send({error: 'One or all params are missing'})
