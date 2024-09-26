@@ -1,11 +1,13 @@
 const express = require('express')
 const req = require('express/lib/request')
+const cors = require('cors')
 const app = express()
 const port = 8080
 const swaggerUi = require('swagger-ui-express')
 const yamljs = require('yamljs')
 const swaggerDocument = yamljs.load('./docs/swagger.yaml');
 
+app.use(cors())
 app.use(express.json())
 
 const games = [
@@ -41,7 +43,7 @@ app.post('/games', (req, res) => {
         name: req.body.name
     })
 
-    
+
     games.push(game)
 
     res.status(201)
