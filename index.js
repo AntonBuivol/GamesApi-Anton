@@ -22,7 +22,7 @@ const games = [
 app.get('/games', (req, res) => {
     res.send(games)
 })
-
+ 
 app.get('/games/:id', (req, res) => {
     if (typeof games[req.params.id - 1] === 'undefined'){
     return res.status(404).send({error: "Game not found"})
