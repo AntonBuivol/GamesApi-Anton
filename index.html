@@ -133,11 +133,11 @@
                     <form @submit.prevent="addGame">
                         <div class="mb-3">
                             <label for="name" class="form-label">Game Name</label>
-                            <input type="text" v-model="newGame.name" class="form-control" id="name" required>
+                            <input type="text" v-model="gameInModal.name" class="form-control" id="name" required>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Price</label>
-                            <input type="number" v-model="newGame.price" class="form-control" id="price" required>
+                            <input type="number" v-model="gameInModal.price" class="form-control" id="price" required>
                         </div>
                         <button type="submit" class="btn btnAdd">Update Game</button>
                     </form>

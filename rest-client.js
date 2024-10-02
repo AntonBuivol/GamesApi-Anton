@@ -48,6 +48,11 @@ const vue = Vue.createApp({
                 this.fetchGames();
             }
         },
+        showUpdateGameModal(game) {
+            this.gameInModal = {...game};
+            let editGameModal = new bootstrap.Modal(document.getElementById('updateGameModal'), {});
+            editGameModal.show();
+        },
         async updateGame(id) {
             const updatedGame = {
                 name: this.gameInModal.name,
