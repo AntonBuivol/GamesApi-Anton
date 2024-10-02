@@ -12,24 +12,24 @@ app.use(cors())
 
 const games = [
     {id: 1, name: "Witcher 3", price: 29.99},
-    {id: 2, name: "STALCRAFT:X", price: 4.99},
-    {id: 3, name: "Minecraft", price: 22.99},
-    {id: 4, name: "CS 2", price: 9.99},
-    {id: 5, name: "Roblox", price: 1.11},
-    {id: 6, name: "Genshin Impact", price: 1.22},
-    {id: 7, name: "Valorant", price: 11.99},
-    {id: 8, name: "GTA V", price: 49.99}
+    {id: 2, name: "Cyberpunk 2077", price: 59.99},
+    {id: 3, name: "Minecraft", price: 26.99},
+    {id: 4, name: "Counter-Strike: Global Offensive", price: 0},
+    {id: 5, name: "Roblox", price: 0},
+    {id: 6, name: "Grand Theft Auto V", price: 29.99},
+    {id: 7, name: "Valorant", price: 0},
+    {id: 8, name: "Forza Horizon 5", price: 59.99}
 ]
 
-app.get('/games', (req,res) =>{
+app.get('/games', (req, res) => {
     res.send(games)
 })
 
-app.get('/games/:id', (req,res) => {
-    if (typeof games[req.params.id -1] === 'undefined'){
-        return res.status(404).send({error: "Game not found"})
+app.get('/games/:id', (req, res) => {
+    if (typeof games[req.params.id - 1] === 'undefined'){
+    return res.status(404).send({error: "Game not found"})
     }
-    res.send(games[req.params.id -1])
+    res.send(games[req.params.id - 1])
 })
 
 app.post('/games', (req,res) => {
@@ -49,12 +49,12 @@ app.post('/games', (req,res) => {
         .send(game)
 })
 
-app.delete('/games/:id', (req,res) => {
-    if (typeof games[req.params.id -1] === 'undefined'){
+app.delete('/games/:id', (req, res) => {
+    if (typeof games[req.params.id - 1] === 'undefined'){
         return res.status(404).send({error: "Game not found"})
     }
-
-    games.splice(req.params.id -1, 1)
+    
+    games.splice(req.params.id - 1, 1)
 
     res.status(204).send({error: "No content"})
 })
@@ -62,10 +62,25 @@ app.delete('/games/:id', (req,res) => {
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.listen(port, () => {
-    console.log(`API up at: http://localhost:${port}/games`)
+    console.log(`API up at: http://localhost:${port}`)
 })
 
-function getBaseUrl(req) {
+app.put('/games/:id', (req, res) => {
+    const gameId = parseInt(req.params.id);
+    const game = games.find(g => g.id === gameId);
+
+    if (!game) {
+        return res.status(404).send({ error: 'Game not found' });
+    }
+
+    // Обновляем поля игры
+    game.name = req.body.name || game.name;
+    game.price = req.body.price || game.price;
+
+    res.send(game);
+});
+
+function getBaseUrl(req){
     return req.connection && req.connection.encrypted
-        ? 'https' : 'http' + `://${req.headers.host}`
+    ? 'https' : 'http' + `://${req.headers.host}`
 }
